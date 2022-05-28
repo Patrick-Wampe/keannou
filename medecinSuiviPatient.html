@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard Medecin - À changer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Docteur Hédreville</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-dashboard"></span> Dashboards</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Formulaires</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Comptes</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="glyphicon glyphicon-wrench"></span> Paramètres<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="row">
+        
+    <h1 class="text-center">
+      <b><span class="glyphicon glyphicon-list-alt"></span> Statistiques</b> de renseignement de formulaires
+    </h1>
+
+
+    <div class="col-xs-12">
+      <h3>
+        Informations renseigné du patient <i><b>Mike Jordan</b></i>
+      </h3>
+      <a href="#"><h4 data-toggle="modal" data-target="#modalAbbreviation">Cliquer pour voir la description des abbréviations</h4></a>
+
+      <div class="col-xs-4">
+        <form action="">
+          <label for="calendier">Date:</label>
+          <input type="date" id="calendier" name="calendier">
+          <!--<input type="submit" value="Validé">-->
+        </form><br><br>
+      </div>
+      <div class="col-xs-4">
+        <form>
+           <select>
+            <option value="0">Selectionner un patient</option>
+            <option value="1">Mike Jordan</option>
+            <option value="2">Alice Jobs</option>
+            <option value="3">Bob Stars</option>
+            <option value="4">Mike Brandon</option>
+            <!--<input type="submit" value="Validé">-->
+          </select>
+        </form>
+      </div>
+      <div class="col-xs-4">
+        <form>
+           <select>
+            <option value="0">Période de visualisation</option>
+            <option value="1">Année en cours</option>
+            <option value="2">6 derniers mois</option>
+            <option value="3">3 derniers mois</option>
+            <option value="4">30 derniers jours</option>
+            <option value="5">Semaine en cours</option>
+            <!--<input type="submit" value="Validé">-->
+          </select>
+        </form>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="justify-content-center" id="line" style="width: 100%; height: 33em;">
+        </div><br><br>
+      </div><br><br><br>
+
+
+      <div class="col-xs-12">
+        <div class="justify-content-center" id="chart_lines" style="width: 100%; height: 33em;">
+        </div><br><br>
+      </div><br><br><br>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="modalAbbreviation" role="dialog">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Détails des abbréviations</h4>
+            </div>
+            <div class="modal-body">
+              <ul>
+                <li>FCM : Fréquence cardiaque par minute</li>
+                <li>TAS : Tension artérielle systolique</li>
+                <li>TAD : Tension artérielle diastolique</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="justify-content-center" id="table_div"></div><br /><br /><br /><br /><br><br><br>
+
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <div class="row navbar-fixed-bottom">
+    <div class="col-sm-offset-3 col-sm-6">
+      <button class="button btn btn-primary">Consultation en ligne</button>
+      <button class="button btn btn-primary">Forum</button>
+      <button class="button btn btn-primary">Blog</button>
+      <button class="button btn btn-primary">Média & vidéo</button>
+      <button class="button btn btn-primary">Espace médical collaboratif</button>
+    </div>
+    <br><br>
+  </div>
+</footer>
+
+<script>
+
+
+/* TENSION ARTÉRIELLE */
+google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'N°');
+      data.addColumn('number', 'Tension artérielle systolique (matin)');
+      data.addColumn('number', 'Tension artérielle systolique (soir)');
+      data.addColumn('number', 'Tension diastolique systolique (matin)');
+      data.addColumn('number', 'Tension diastolique systolique (soir)')
+      data.addRows([
+        [1,  37.8, 80.8, 41.8, 57],
+        [2,  30.9, 69.5, 32.4, 56],
+        [3,  25.4,   57, 25.7, 34],
+        [4,  11.7, 18.8, 10.5, 87],
+        [5,  11.9, 17.6, 10.4, 65],
+        [6,   8.8, 13.6,  7.7, 12],
+        [7,   7.6, 12.3,  9.6, 10],
+        [8,  12.3, 29.2, 10.6, 91],
+        [9,  16.9, 42.9, 14.8, 12],
+        [10, 12.8, 30.9, 11.6, 11],
+        [11,  5.3,  7.9,  4.7, 75],
+        [12,  6.6,  8.4,  5.2, 21],
+        [13,  4.8,  6.3,  3.6, 35],
+        [14,  4.2,  6.2,  3.4, 75],
+        [15,  37.8, 80.8, 41.8, 57],
+        [16,  30.9, 69.5, 32.4, 56],
+        [17,  25.4,   57, 25.7, 34],
+        [18,  11.7, 18.8, 10.5, 87],
+        [19,  11.9, 17.6, 10.4, 65],
+        [20,   8.8, 13.6,  7.7, 12],
+        [21,   7.6, 12.3,  9.6, 10],
+        [22,  12.3, 29.2, 10.6, 91],
+        [23,  16.9, 42.9, 14.8, 12],
+        [24, 12.8, 30.9, 11.6, 11],
+        [25,  5.3,  7.9,  4.7, 75],
+        [26,  6.6,  8.4,  5.2, 21],
+        [27,  4.8,  6.3,  3.6, 35],
+        [28,  5.3,  7.9,  4.7, 75],
+        [29,  6.6,  8.4,  5.2, 21],
+        [30,  4.8,  6.3,  3.6, 35]
+      ]);
+      var options = {
+        chart: {
+          title: 'Évolution de la tension artérielle',
+          subtitle: ''
+        },
+        width: "100%",
+        height: 500
+      };
+      var chart = new google.charts.Line(document.getElementById('line'));
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+/* TENSION ARTÉRIELLE */
+
+google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart2);
+
+      function drawChart2() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'x');
+        data.addColumn('number', 'values');
+  
+        data.addRows([
+            [1, 100],
+            [2, 120],
+            [3, 130],
+            [4, 90],
+            [5, 70],
+            [6, 30],
+            [7, 80],
+            [8, 100],
+            [9, 120],
+            [10, 130],
+            [11, 90],
+            [12, 70],
+            [13, 30],
+            [14, 80],
+            [15, 100],
+            [16, 120],
+            [17, 130],
+            [18, 90],
+            [19, 70],
+            [20, 30],
+            [21, 130],
+            [22, 90],
+            [23, 70],
+            [24, 30],
+            [25, 80],
+            [26, 100],
+            [27, 120],
+            [28, 130],
+            [29, 90],
+            [30, 100]]);
+  
+        // The intervals data as narrow lines (useful for showing raw source data)
+        var options_lines = {
+            title: 'Évolution de la fréquence cardiaque sur le mois',
+            curveType: 'function',
+            lineWidth: 4,
+            intervals: { 'style':'line' },
+            legend: 'none'
+        };
+  
+        var chart_lines = new google.visualization.LineChart(document.getElementById('chart_lines'));
+        chart_lines.draw(data, options_lines);
+      }
+
+
+
+
+/* TABLEAU */
+
+google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Date');
+        data.addColumn('string', 'Nom');
+        data.addColumn('string', 'Prénom');
+        data.addColumn('string', "FCM");
+        data.addColumn('string', "TAS matin");
+        data.addColumn('string', "TAS soir");
+        data.addColumn('string', "TAD matin");
+        data.addColumn('string', "TAD soir");
+        data.addColumn('string', "Description des symptomes cardiovasculaires");
+        data.addColumn('string', "Nombre de médicaments pris");
+        data.addRows([
+          ["09/10/2020", 'Mike', 'Jordan', "12", "42", "23", "656", "22", "Mal de gorge et maux de tête", "3"],
+          ["08/10/2020",'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["07/10/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["06/10/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"],
+          ["05/10/2020", 'Mike', 'Jordan', "12", "42", "23", "656", "22", "Mal de gorge et maux de tête", "3"],
+          ["04/10/2020", 'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["03/10/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["02/10/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"],
+          ["01/10/2020", 'Mike', 'Jordan', "12", "42", "23", "656", "22", "Mal de gorge et maux de tête", "3"],
+          ["30/09/2020", 'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["29/09/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["28/09/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"],
+          ["27/09/2020", 'Mike', 'Jordan', "12", "42", "23", "656", "22", "Mal de gorge et maux de tête", "3"],
+          ["26/09/2020", 'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["25/09/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["24/09/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"],
+          ["23/09/2020", 'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["22/09/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["21/09/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"],
+          ["20/09/2020", 'Mike', 'Jordan', "12", "42", "23", "656", "22", "Mal de gorge et maux de tête", "3"],
+          ["19/09/2020", 'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["18/09/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["17/09/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"],
+          ["16/09/2020", 'Mike', 'Jordan', "12", "42", "23", "656", "22", "Mal de gorge et maux de tête", "3"],
+          ["15/09/2020", 'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["14/09/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["13/09/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"],
+          ["12/09/2020", 'Mike', 'Jordan', "12", "42", "23", "656", "22", "Mal de gorge et maux de tête", "3"],
+          ["11/09/2020", 'Jim', 'Edwards',  "12", "42", "23", "66", "65", "Mal au dos", "4"],
+          ["10/09/2020", 'Alice', 'Jobs',  "12", "42", "23", "56", "62", "Mal de tête", "4"],
+          ["09/09/2020", 'Bob', 'Stars',  "12", "42", "23", "65", "23", "Mal de gorge et maux de tête", "12"]
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+      }
+
+/* TABLEAU */
+
+  var d = new Date();
+  var jours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  var mois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet", "Août", "Septembre",
+  "Octobre", "Novembre", "Décembre"];
+  document.getElementById("jour").innerHTML = jours[d.getDay()];
+  document.getElementById("journumber").innerHTML = d.getDate();
+  document.getElementById("mois").innerHTML = mois[d.getMonth()];
+  document.getElementById("annee").innerHTML = d.getFullYear();
+</script>
+
+</body>
+</html>

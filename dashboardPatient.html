@@ -1,0 +1,4221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard patient</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+		<link rel="stylesheet" href="css/style.css">
+    <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	</head>
+
+  <body onload="grahiquePoids(), grahiqueTourDeTaille(), 
+  graphiqueFrequenceCardiaque(), graphiqueTensionArterielle(),
+  nombreDeMedicamentsPrisDansLaJournee(), nombreRepasPris(),
+  consommationAlcoolEau(), activitePhysique(),
+  autresSymptomes(), histogrammeSymptomes()">
+    <nav class="row col-xs-12 navbar navbar-inverse barreDeNavigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>  
+          </button>
+          <a href="dashboardMedecin.html"><img src="images/logo.png" width=25% class="img-responsive"></a>
+        </div>
+        <div class="collapse navbar-collapse " id="myNavbar">
+          <ul class="nav navbar-nav texteBarreDeNavigation">
+            <li><a href="dashboardMedecin.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="dashboardMedecin.html">
+                <span class="glyphicon glyphicon-list-alt"></span> Formulaires<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="formulaireQuotidien.html">Informations de santé générales (Formulaire quotidien)</a></li>
+                <li><a href="formulaireEvaluationStress.html">Évaluation du niveau de stress (Toutes les 2 semaines)</a></li>
+              </ul>
+            </li>
+            <li><a href="compteMedecin.html"><span class="glyphicon glyphicon-user"></span> Comptes</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">  
+        <h1 class="text-center">
+          <b><span class="glyphicon glyphicon-list-alt"></span> Dashboard</b> patient P1234
+        </h1>
+
+        <form class="col-xs-4">
+          <label for="semaine">Choisissez une semaine : </label>
+          <input type="week" id="semaine" name="semaine">
+          <input type="submit" value="Valider">
+        </form>
+        <form class="col-xs-4">
+            <label for="semaine">Selectionner un patient : </label>
+            <select>
+            <option value="1">Mike Jordan</option>
+            <option value="2">Alice Jobs</option>
+            <option value="3">Bob Stars</option>
+            <option value="4">Mike Brandon</option>
+          </select>
+        </form>
+        <form class="col-xs-4">
+          <label for="semaine">Période de visualisation : </label>
+           <select>
+            <option value="1">Semaine</option>
+            <option value="2">Mois</option>
+            <option value="3">3 derniers mois</option>
+            <option value="4">6 derniers jours</option>
+            <option value="5">Année</option>
+          </select>
+        </form>
+
+        <div class="col-xs-12">
+          <h2>Informations générales</h2>
+          <!-- Poids -->
+          <div class="row col-xs-12"><div id="grahiquePoids"></div></div>
+
+          <!-- Tour de taille -->
+          <div class="row col-xs-12"><div id="grahiqueTourDeTaille"></div></div>
+
+          <h3>Tableau poids et tour de taille</h3><br>
+          <table id="tableauInformationsGenerales" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Poids en Kg  <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Tour de taille en cm <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>87</td>
+                    <td>154</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>89</td>
+                  <td>124</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>57</td>
+                  <td>152</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>77</td>
+                  <td>114</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>52</td>
+                  <td>94</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>77</td>
+                  <td>111</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>34</td>
+                  <td>121</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>88</td>
+                  <td>113</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>76</td>
+                  <td>84</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>77</td>
+                  <td>124</td>
+                </tr>
+                <tr>
+                  <td>P11</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>78</td>
+                  <td>124</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>92</td>
+                  <td>95</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>45</td>
+                  <td>73</td>
+                </tr>
+                <tr>
+                  <td>P14</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>65</td>
+                  <td>121</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>88</td>
+                  <td>114</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>65</td>
+                  <td>124</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>24/05/2022</td>
+                  <td>Mardi</td>
+                  <td>45</td>
+                  <td>65</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>77</td>
+                  <td>212</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>37</td>
+                  <td>124</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>92</td>
+                  <td>114</td>
+                </tr>
+                <tr>
+                  <td>P1</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>56</td>
+                  <td>114</td>
+                </tr>
+            </tbody>
+        </table>
+
+          <h2>Informations cardiaques et tension artérielle</h2>
+          <!-- Fréquence cardiaque par minute -->
+          <div class="row col-xs-12"><div id="graphiqueFrequenceCardiaque"></div></div>
+
+          <!-- Tension artérielle systolique et diastolique -->
+          <div class="row col-xs-12"><div id="graphiqueTensionArterielle"></div></div><br>
+
+          <h3>Tableau symptomes cardiovasculaires et tension artérielle</h3><br>
+          <table id="tableauSymptomesCardiovasculairesTensionArterielle" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Fréquence cardiaque par minute <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Tension artérielle systolique (prise du matin) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Tension artérielle systolique (prise du soir) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Tension artérielle diastolique (prise du matin) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Tension artérielle diastolique (prise du soir) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Décrivez vos symptomes cardiovasculaires en quelques mots (malaise, perte de connaissance…) 📋 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>56</td>
+                    <td>32</td>
+                    <td>34</td>
+                    <td>43</td>
+                    <td>23</td>
+                    <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>36</td>
+                  <td>22</td>
+                  <td>14</td>
+                  <td>63</td>
+                  <td>33</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>51</td>
+                  <td>38</td>
+                  <td>31</td>
+                  <td>49</td>
+                  <td>27</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>36</td>
+                  <td>22</td>
+                  <td>44</td>
+                  <td>43</td>
+                  <td>73</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>23</td>
+                  <td>56</td>
+                  <td>38</td>
+                  <td>28</td>
+                  <td>21</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P11</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>83</td>
+                  <td>16</td>
+                  <td>78</td>
+                  <td>22</td>
+                  <td>37</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>33</td>
+                  <td>51</td>
+                  <td>33</td>
+                  <td>21</td>
+                  <td>87</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P14</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>23</td>
+                  <td>56</td>
+                  <td>38</td>
+                  <td>28</td>
+                  <td>21</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>24/05/2022</td>
+                  <td>Mardi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>33</td>
+                  <td>16</td>
+                  <td>32</td>
+                  <td>23</td>
+                  <td>65</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P1</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>56</td>
+                  <td>32</td>
+                  <td>34</td>
+                  <td>43</td>
+                  <td>23</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h2>Prise de médicaments</h2>
+          <!-- Nombre De Medicaments Pris Dans La Journee -->
+          <div id="nombreDeMedicamentsPrisDansLaJournee"></div>
+
+          <h3>Tableau prise de médicaments</h3><br>
+          <table id="tableauPriseMedicaments" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Nombre de médicaments pris dans la journée 💊 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Oublie de prendre le(s) médicament(s) le matin 🌄 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Oublie de prendre le(s) médicament(s) le soir 🌅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Effet(s) secondaire(s) remarqué(s) 🤢 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Symptôme(s) particulier(s) remarqué(s) 🤒 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Décrivez vos effets secondaires et/ou symptomes particuliers remarqués en quelques mots 📋 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>3</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                    <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>4</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>5</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>0</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>0</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>2</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P11</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>2</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P14</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>3</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>4</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>24/05/2022</td>
+                  <td>Mardi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>2</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>3</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>1</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h2>Alimentation</h2>
+          <!-- Nombre de repas pris durant la journée -->
+          <div id="nombreRepasPris"></div>
+          <!-- Consommation d'alcool et d'eau -->
+          <div id="consommationAlcoolEau"></div>
+
+          <h3>Tableau alimentation</h3><br>
+          <table id="tableauAlimentation" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Consommation d'alcool 🍷 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Grignotage sucré 🍫 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Grignotage salé 🧂 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Nombre de repas pris durant la journée 🍕 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Quantité d'eau bu en litre 🍶 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Quantité d'alcool consommé en litre 🍷 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>❌</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P11</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P14</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>24/05/2022</td>
+                  <td>Mardi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+            </tbody>
+          </table>
+          
+          <h2>Activité physique</h2>
+          <!-- Durée de l'activité physique en minute -->
+          <div id="activitePhysique"></div>
+
+          <h3>Tableau activité physique</h3><br>
+          <table id="tableauActivitePhysique" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>J'ai eu une activité physique aujourd'hui 🏋🏾‍♂️ <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Durée de l'activité physique en minute ⏱ <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Décrivez la nature de votre activité physique 📋 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>✅</td>
+                    <td>15</td>
+                    <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>❌</td>
+                  <td>00</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>✅</td>
+                  <td>45</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>5</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>✅</td>
+                  <td>55</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>❌</td>
+                  <td>00</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>65</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>✅</td>
+                  <td>45</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>✅</td>
+                  <td>15</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>❌</td>
+                  <td>00</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P11</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>11</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>87</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>❌</td>
+                  <td>00</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P14</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>13</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>✅</td>
+                  <td>22</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>✅</td>
+                  <td>27</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>24/05/2022</td>
+                  <td>Mardi</td>
+                  <td>❌</td>
+                  <td>00</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>❌</td>
+                  <td>29</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>42</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>❌</td>
+                  <td>00</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>✅</td>
+                  <td>29</td>
+                  <td>Lorem ipsum dolores it cogito...</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h2>Autres symptomes</h2>
+          <div id="autresSymptomes"></div>
+          <div id="histogrammeSymptomes"></div>
+
+          <h3>Tableau autres symptômes partie 1</h3><br>
+          <table id="tableauAutresSymptomes1" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Présence de dyspnée <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Présence d'œdème <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Présence d'épisode(s) infectieux <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Présence de fièvre <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Présence de palpitation <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Présence de douleur thoracique <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Présence de malaise <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>✅</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P11</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P14</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>24/05/2022</td>
+                  <td>Mardi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>❌</td>
+                  <td>❌</td>
+                  <td>✅</td>
+                  <td>✅</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Tableau autres symptômes partie 2</h3><br>
+          <table id="tableauAutresSymptomes2" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez l'heure de début des palpitations <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez la durée total des palpitations apparues durant la journée en minute <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez l'heure de début des douleurs thoraciques <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez la durée total des douleurs thoraciques apparues durant la journée en minute <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez l'heure de début des malaises <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez la durée total des malaises apparus durant la journée en minute <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>16H23</td>
+                    <td>23</td>
+                    <td>18H12</td>
+                    <td>36</td>
+                    <td>11H26</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>11H23</td>
+                  <td>13</td>
+                  <td>11H12</td>
+                  <td>39</td>
+                  <td>09H26</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>07H23</td>
+                  <td>13</td>
+                  <td>22H12</td>
+                  <td>12</td>
+                  <td>19H26</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>16H23</td>
+                  <td>23</td>
+                  <td>18H06</td>
+                  <td>16</td>
+                  <td>15H26</td>
+                  <td>19</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>11H23</td>
+                  <td>63</td>
+                  <td>22H12</td>
+                  <td>37</td>
+                  <td>07H26</td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>16H23</td>
+                  <td>23</td>
+                  <td>18H12</td>
+                  <td>36</td>
+                  <td>11H26</td>
+                  <td>11</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>08H21</td>
+                  <td>43</td>
+                  <td>11H14</td>
+                  <td>76</td>
+                  <td>10H21</td>
+                  <td>28</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>13H23</td>
+                  <td>21</td>
+                  <td>12H11</td>
+                  <td>58</td>
+                  <td>12H16</td>
+                  <td>19</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>16H23</td>
+                  <td>23</td>
+                  <td>18H12</td>
+                  <td>36</td>
+                  <td>11H26</td>
+                  <td>11</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>15H13</td>
+                  <td>33</td>
+                  <td>19H52</td>
+                  <td>36</td>
+                  <td>12H56</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>11H23</td>
+                  <td>13</td>
+                  <td>11H12</td>
+                  <td>39</td>
+                  <td>09H26</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>07H23</td>
+                  <td>13</td>
+                  <td>22H12</td>
+                  <td>12</td>
+                  <td>19H26</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>16H23</td>
+                  <td>23</td>
+                  <td>18H06</td>
+                  <td>16</td>
+                  <td>15H26</td>
+                  <td>19</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>11H23</td>
+                  <td>63</td>
+                  <td>22H12</td>
+                  <td>37</td>
+                  <td>07H26</td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>16H23</td>
+                  <td>23</td>
+                  <td>18H12</td>
+                  <td>36</td>
+                  <td>11H26</td>
+                  <td>11</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>08H21</td>
+                  <td>43</td>
+                  <td>11H14</td>
+                  <td>76</td>
+                  <td>10H21</td>
+                  <td>28</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>13H23</td>
+                  <td>21</td>
+                  <td>12H11</td>
+                  <td>58</td>
+                  <td>12H16</td>
+                  <td>19</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>16H23</td>
+                  <td>23</td>
+                  <td>18H12</td>
+                  <td>36</td>
+                  <td>11H26</td>
+                  <td>11</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>15H13</td>
+                  <td>33</td>
+                  <td>19H52</td>
+                  <td>36</td>
+                  <td>12H56</td>
+                  <td>10</td>
+                </tr>
+            </tbody>
+          </table>
+          
+          <h2>Autres informations médicales</h2><br>
+
+          <h3>Autres informations médicales partie 1</h3><br>
+          <table id="tableauAutresInformationsMedicales1" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez vos valeurs de natremie en mmol/l (millimoles par litre) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez vos valeurs de potassium en mmol/l (millimoles par litre) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez vos valeurs de créatinine en μmol/l (micromoles par litre) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez vos valeurs de clairance de créatinine en ml/m (millilitres par minutes) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux de NT Probnp en ng/l (nanogrammes par litre) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux de fer sérique mg/l (milligrame par litre) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>123</td>
+                    <td>321</td>
+                    <td>217</td>
+                    <td>512</td>
+                    <td>175</td>
+                    <td>112</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>123</td>
+                  <td>321</td>
+                  <td>217</td>
+                  <td>512</td>
+                  <td>175</td>
+                  <td>112</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>13</td>
+                  <td>213</td>
+                  <td>202</td>
+                  <td>371</td>
+                  <td>726</td>
+                  <td>612</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>123</td>
+                  <td>213</td>
+                  <td>1812</td>
+                  <td>316</td>
+                  <td>126</td>
+                  <td>121</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>821</td>
+                  <td>430</td>
+                  <td>111</td>
+                  <td>716</td>
+                  <td>121</td>
+                  <td>280</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>123</td>
+                  <td>231</td>
+                  <td>182</td>
+                  <td>368</td>
+                  <td>126</td>
+                  <td>191</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>113</td>
+                  <td>313</td>
+                  <td>152</td>
+                  <td>386</td>
+                  <td>156</td>
+                  <td>102</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Autres informations médicales partie 2</h3><br>
+          <table id="tableauAutresInformationsMedicales2" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux d'hémoglobine en g/100 ml (gramme par 100 millilitre) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez vos valeurs de Vitesse de sédimentation (VS) en milimètre <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux protéine C réactive en mg/l <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux de troponine en μg/l (microgrammes par litre) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux de vitamine D en ng/ml de sang <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux d'acide urique en mg/l <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Indiquez votre taux de INR (International Normalized Ratio) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b><a href="">P1</a></b></td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>123</td>
+                    <td>321</td>
+                    <td>217</td>
+                    <td>512</td>
+                    <td>175</td>
+                    <td>112</td>
+                    <td>512</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>123</td>
+                  <td>321</td>
+                  <td>217</td>
+                  <td>512</td>
+                  <td>175</td>
+                  <td>112</td>
+                  <td>512</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                  <td>112</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                  <td>112</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                  <td>113</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>113</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>113</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>113</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>113</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                  <td>582</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>113</td>
+                  <td>341</td>
+                  <td>582</td>
+                  <td>287</td>
+                  <td>582</td>
+                  <td>171</td>
+                  <td>119</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>582</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                  <td>582</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>13</td>
+                  <td>213</td>
+                  <td>202</td>
+                  <td>371</td>
+                  <td>726</td>
+                  <td>582</td>
+                  <td>612</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>123</td>
+                  <td>213</td>
+                  <td>1812</td>
+                  <td>316</td>
+                  <td>126</td>
+                  <td>582</td>
+                  <td>121</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>821</td>
+                  <td>582</td>
+                  <td>430</td>
+                  <td>111</td>
+                  <td>716</td>
+                  <td>121</td>
+                  <td>280</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>257</td>
+                  <td>131</td>
+                  <td>582</td>
+                  <td>212</td>
+                  <td>192</td>
+                  <td>1926</td>
+                  <td>997</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>123</td>
+                  <td>231</td>
+                  <td>182</td>
+                  <td>368</td>
+                  <td>582</td>
+                  <td>126</td>
+                  <td>191</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>113</td>
+                  <td>313</td>
+                  <td>152</td>
+                  <td>386</td>
+                  <td>156</td>
+                  <td>582</td>
+                  <td>102</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h2>Évaluation du niveau de stress</h2><br>
+
+          <h3>Partie 1</h3><br>
+          <table id="tableauEvaluationNiveauStress1" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Total de l’impact du stress dans votre vie actuelle <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>45</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>35</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>30</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>25</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>15</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>55</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>25</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>55</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>65</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>75</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>105</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>110</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>105</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>95</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Partie 2</h3><br>
+          <table id="tableauEvaluationNiveauStress2" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Irritabilité <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Sentiments dépressifs <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Bouche sèche ou gorge sèche <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Actions ou gestes impulsifs <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Grincement des dents <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Difficulté à rester assis <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Cauchemars <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Partie 3</h3><br>
+          <table id="tableauEvaluationNiveauStress3" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Diarrhée <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Attaques verbales envers quelqu’un <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Hauts et bas émotifs <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Grande envie de pleurer <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Grande envie de fuir <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Grande envie de faire mal <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Pensées embrouillées <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Partie 4</h3><br>
+          <table id="tableauEvaluationNiveauStress4" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Débit plus rapide <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Fatigue ou lourdeur généralisées <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Sentiment d’être surchargé(e) <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Sentiment d’être émotivement fragile <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Sentiment de tristesse <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Sentiment d’anxiété <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Tension émotionnelle <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Partie 5</h3><br>
+          <table id="tableauEvaluationNiveauStress5" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Hostilité envers les autres <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Tremblements ou gestes nerveux <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Bégaiements ou hésitations verbales <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Incapacité ou difficulté à se concentrer <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Difficulté à organiser ses pensées <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Difficulté à dormir toute la nuit sans se réveiller <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Besoin fréquent d’uriner <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Partie 6</h3><br>
+          <table id="tableauEvaluationNiveauStress6" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Maux d’estomac ou difficultés à digérer <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Geste ou sentiment d’impatience <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Maux de tête <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Douleurs au dos ou à la nuque <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Perte ou gain d’appétit <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Perte d’intérêt pour le sexe <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Oublis fréquents <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <h3>Partie 7</h3><br>
+          <table id="tableauEvaluationNiveauStress7" class="table display order-column" style="width:100%">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>ID patient <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Date 🗓 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Jour 📅 <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Douleurs ou serrements à la poitrine <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Conflits significatifs avec les autres <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Difficulté à se lever après le sommeil <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Sentiment que les choses sont hors de contrôle <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Difficulté à faire une longue activité continue <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Mouvements de retrait, d’isolement <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Difficulté à s’endormir <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Difficulté à se remettre d’un événement contrariant <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                    <th>Mains moites <span class="glyphicon glyphicon-resize-vertical"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P1</td>
+                    <td>26/05/2022</td>
+                    <td>Jeudi</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                  <td>P2</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                  <td>P3</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P4</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P5</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P6</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanchge</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P7</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P8</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P9</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P10</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P12</td>
+                  <td>25/05/2022</td>
+                  <td>Mercredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P13</td>
+                  <td>27/05/2022</td>
+                  <td>Vendredi</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P15</td>
+                  <td>28/05/2022</td>
+                  <td>Samedi</td>
+                  <td>10</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P16</td>
+                  <td>29/05/2022</td>
+                  <td>Dimanche</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P17</td>
+                  <td>26/05/2022</td>
+                  <td>Jeudi</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>P18</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>P19</td>
+                  <td>23/05/2022</td>
+                  <td>Lundi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>P20</td>
+                  <td>21/05/2022</td>
+                  <td>Samedi</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>5</td>
+                </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+    <br><br><br><br><br><br>
+
+    <footer class="container-fluid text-center">
+      <div class="row navbar-fixed-bottom">
+        <div class="col-xs-offset-2 col-xs-8">
+          <button class="button btn btn-primary footerBouton">Consultation en ligne</button>
+          <button class="button btn btn-primary footerBouton">Forum</button>
+          <button class="button btn btn-primary footerBouton">Blog</button>
+          <button class="button btn btn-primary footerBouton">Média & vidéo</button>
+          <button class="button btn btn-primary footerBouton">Espace médical collaboratif</button>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function grahiquePoids(){
+        var data = [{
+          x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+          y: [44, 43, 44, 43, 45, 44, 42],
+          type: 'scatter'
+        }];
+
+        var layout = {
+          title: 'Évolution du poids',
+          yaxis: {
+            title: 'Poids'
+          },
+          xaxis: {
+            title: 'Jour de la semaine'
+          }
+            }
+            Plotly.newPlot('grahiquePoids', data, layout);
+        }
+
+      function grahiqueTourDeTaille(){
+        var data = [{
+          x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+          y: [144, 143, 144, 143, 145, 144, 142],
+          marker: {color: 'rgb(17, 142, 121)'},
+          type: 'scatter'
+        }];
+
+        var layout = {
+          title: 'Évolution du tour de taille',
+          yaxis: {
+            title: 'Tour de taille'
+          },
+          xaxis: {
+            title: 'Jour de la semaine'
+            }
+          }
+
+          Plotly.newPlot('grahiqueTourDeTaille', data, layout);
+        }
+
+      function graphiqueFrequenceCardiaque(){
+        var data = [{
+        x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y: [100, 105, 103, 107, 121, 101, 122],
+        marker: {color: 'red'},
+        type: 'scatter',
+        name: '1'
+        }];
+
+        var layout = {
+          title: 'Évolution fréquence cardiaque',
+          yaxis: {
+            title: 'Fréquence cardiaque'
+          },
+          xaxis: {
+            title: 'Jour de la semaine'
+            }
+          }
+        Plotly.newPlot('graphiqueFrequenceCardiaque', data, layout);
+      }
+
+      function graphiqueTensionArterielle(){
+        var trace1 = {
+        x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y: [20, 14, 23, 32, 11, 51, 12],
+        name: 'Tension artérielle systolique (prise du matin)',
+        type: 'bar'
+        };
+        var trace2 = {
+          x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+          y: [12, 18, 29, 12, 33, 41, 12],
+          name: 'Tension artérielle systolique (prise du soir)',
+          type: 'bar'
+        };
+        var trace3 = {
+          x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+          y: [12, 18, 29, 43, 22, 11, 32],
+          name: 'Tension artérielle diastolique (prise du matin)',
+          type: 'bar'
+        };
+        var trace4 = {
+          x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+          y: [12, 18, 29, 22, 24, 26, 12],
+          name: 'Tension artérielle diastolique (prise du soir)',
+          type: 'bar'
+        };
+
+        var layout = {
+          title: 'Tension artérielle systolique et diastolique',
+          yaxis: {
+            title: 'Valeur tension',
+          },
+          xaxis: {
+            title: 'Jour de la semaine'
+            },
+            barmode: 'group',
+          }
+        
+
+        var data = [trace1, trace2, trace3, trace4];
+        Plotly.newPlot('graphiqueTensionArterielle', data, layout);
+      }
+
+      function nombreDeMedicamentsPrisDansLaJournee(){
+        var data = [{
+        x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y: [2, 3, 3, 1, 2, 1, 2],
+        type: 'scatter',
+        marker: {color: 'rgb(203, 179, 0)'},
+        name: '1'
+        }];
+
+        var layout = {
+          title: 'Nombre de médicaments pris dans la journée',
+          yaxis: {
+            title: 'Nombre de médicaments'
+          },
+          xaxis: {
+            title: 'Jour de la semaine'
+          }
+            }
+
+          Plotly.newPlot('nombreDeMedicamentsPrisDansLaJournee', data, layout);
+        };
+      
+      function nombreRepasPris(){
+        var data = [{
+        x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y: [2, 3, 3, 1, 2, 1, 2],
+        type: 'scatter',
+        marker: {color: 'rgb(136, 0, 203)'},
+        name: '1'
+        }];
+
+        var layout = {
+          title: 'Nombre de repas pris dans la journée',
+          yaxis: {
+            title: 'Nombre repas'
+          },
+          xaxis: {
+            title: 'Jour de la semaine'
+          }
+            }
+        
+        Plotly.newPlot('nombreRepasPris', data, layout);
+      }
+
+      function consommationAlcoolEau(){
+        var eau = {
+        x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y: [2, 2, 1.5, 1, 1, 1, 2],
+        type: 'scatter',
+        name: 'Eau'
+        };
+        var alcool = {
+          x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+          y: [1, 0, 0, 1.3, 0.5, 1, 1.5],
+          type: 'scatter',
+          name: 'Alcool'
+        };
+
+        var layout = {
+          title: "Consommation d'alcool et d'eau par jour (en litre)",
+          yaxis: {
+            title: 'Quantité consommé en litre'
+          },
+          xaxis: {
+            title: 'Jour de la semaine'
+            }
+          }
+
+        var data = [eau, alcool];
+        Plotly.newPlot('consommationAlcoolEau', data, layout);
+      }
+
+      function activitePhysique(){
+        var data = [{
+        x: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y : [7, 8, 9, 9,10,14,15],
+        name: '1',
+        mode:"markers",
+        marker: {
+        color: 'orange',
+        size: 12
+        },
+        type: 'scatter'
+        }];
+
+        var layout = {
+          xaxis: {range: [-0.5, 7.2], title: "Jour de la semaine"},
+          yaxis: {title : "Durée en minute"},  
+          title: "Durée de l'activité physique en minute"
+        };
+        Plotly.newPlot('activitePhysique', data, layout);
+      };
+
+      function autresSymptomes(){
+        var allLabels = ['Entre 00H et 4H', 'Entre 4H et 8H',
+                  "Entre 8H et 12H", "Entre 12H et 14H", "Entre 14H et 18H",
+                "Entre 18H et 20H", "Entre 20H et 23H59"];
+
+        var allValues = [
+          [38, 27, 18, 10, 7, 21, 12],  // palpitations
+          [28, 26, 21, 15, 10, 18, 10], // douleurs thoraciques
+          [38, 19, 16, 14, 13, 8, 27],  // malaises
+        ];
+
+        var data = [{
+          values: allValues[0],
+          labels: allLabels,
+          type: 'pie',
+          title:"Heure de début des palpitations",
+          domain: {
+            row: 0,
+            column: 0
+          },
+          hoverinfo: 'label+percent'
+        },
+        {
+          values: allValues[1],
+          labels: allLabels,
+          type: 'pie',
+          title:"Heure de début des douleurs thoraciques",
+          domain: {
+            row: 0,
+            column: 1
+          },
+          hoverinfo: 'label+percent'
+        },
+        {
+          values: allValues[2],
+          labels: allLabels,
+          type: 'pie',
+          title:"Heure de début des malaises",
+
+          domain: {
+            row: 1,
+            column: 0
+          },
+          hoverinfo: 'label+percent'
+        }];
+
+        var layout = {
+          grid: {rows: 2, columns: 2},
+          height: 800,
+          width: 800
+        };
+
+        Plotly.newPlot('autresSymptomes', data, layout);
+        }
+
+      function histogrammeSymptomes(){
+      var trace1 = {
+      x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+      y: [20, 14, 23, 32, 11, 51, 12],
+      name: 'Durée total des palpitations apparues durant la journée en minute',
+      type: 'bar'
+      };
+      var trace2 = {
+        x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y: [12, 18, 29, 12, 33, 41, 12],
+        name: 'Durée total des douleurs thoraciques apparues durant la journée en minute',
+        type: 'bar'
+      };
+      var trace3 = {
+        x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        y: [12, 18, 29, 43, 22, 11, 32],
+        name: 'Durée total des malaises apparus durant la journée en minute',
+        type: 'bar'
+      };
+
+      var trace4 = {
+      x: ['Lundi', 'Mardi', 'Mercredi', "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+      y: [14,16, 26, 29, 22, 35, 20],
+      type: 'scatter',
+      name: 'Moyenne'
+      };
+
+      var layout = {
+          barmode: 'group',
+          xaxis: {range: [-0.5, 7.2], title: "Jour de la semaine"},
+          yaxis: {title : "Durée en minute"},  
+          title: "Durée total des palpitations, des douleurs thoraciques et des malaises"
+        };
+
+      var data = [trace1, trace2, trace3, trace4];
+      Plotly.newPlot('histogrammeSymptomes', data, layout);
+    }
+    
+      $(document).ready(function tableauInformationsGenerales() {
+          $('#tableauInformationsGenerales').DataTable();
+        });
+
+      $(document).ready(function tableauSymptomesCardiovasculairesTensionArterielle() {
+          $('#tableauSymptomesCardiovasculairesTensionArterielle').DataTable();
+        });
+
+      $(document).ready(function tableauPriseMedicaments() {
+        $('#tableauPriseMedicaments').DataTable();
+      });
+
+      $(document).ready(function tableauAlimentation() {
+        $('#tableauAlimentation').DataTable();
+      });
+
+      $(document).ready(function tableauActivitePhysique() {
+        $('#tableauActivitePhysique').DataTable();
+      });
+
+      $(document).ready(function tableauAutresSymptomes() {
+        $('#tableauAutresSymptomes1').DataTable();
+      });
+
+      $(document).ready(function tableauAutresSymptomes() {
+        $('#tableauAutresSymptomes2').DataTable();
+      }); 
+
+      $(document).ready(function tableauAutresInformationsMedicales1() {
+        $('#tableauAutresInformationsMedicales1').DataTable();
+      });    
+      
+      $(document).ready(function tableauAutresInformationsMedicales2() {
+        $('#tableauAutresInformationsMedicales2').DataTable();
+      });  
+
+      $(document).ready(function tableauEvaluationNiveauStress1() {
+        $('#tableauEvaluationNiveauStress1').DataTable();
+      }); 
+
+      $(document).ready(function tableauEvaluationNiveauStress2() {
+        $('#tableauEvaluationNiveauStress2').DataTable();
+      }); 
+
+      $(document).ready(function tableauEvaluationNiveauStress3() {
+        $('#tableauEvaluationNiveauStress3').DataTable();
+      }); 
+
+      $(document).ready(function tableauEvaluationNiveauStress4() {
+        $('#tableauEvaluationNiveauStress4').DataTable();
+      }); 
+
+      $(document).ready(function tableauEvaluationNiveauStress5() {
+        $('#tableauEvaluationNiveauStress5').DataTable();
+      }); 
+
+      $(document).ready(function tableauEvaluationNiveauStress6() {
+        $('#tableauEvaluationNiveauStress6').DataTable();
+      }); 
+
+      $(document).ready(function tableauEvaluationNiveauStress7() {
+        $('#tableauEvaluationNiveauStress7').DataTable();
+      }); 
+    </script>
+  </body>
+</html>

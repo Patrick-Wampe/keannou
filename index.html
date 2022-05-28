@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Connexion Kè an nou</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body class="imageDeFond"> 
+		<div class="container-fluid contenuConnexion">
+			<div class="row">
+				<div class="col-sm-offset-6 col-sm-5 text-center">
+					<div class="img-responsive"><img src="images/logo.png" width=20%></div>
+					<h2>
+						BIENVENUE SUR LE SITE DE SUIVI PERSONNEL DE KEANNOU.NET
+					</h2><br>
+					<form action="" method="">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Identifiant" id="id" name="id">
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Mot de passe" id="mdp" name="mdp">
+						</div> 
+						<p data-toggle="modal" data-target="#modalFormulaireAccueil">
+							<a href="#"><strong>Vous n'arrivez pas à vous connecter ?</strong></a>
+						</p>
+						<div class="justify-content-center">
+							<a href="dashboardMedecin.html"><input type="" value="Connexion" class="btn btn-primary" onclick=""/></a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div><br><br><br><br><br><br>
+
+		<div class="modal" id="modalFormulaireAccueil">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Vous n'arrivez pas à vous connecter ?</h3>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p><strong>Vous n'avez pas d'identifiant :</strong> Contactez votre médecin pour qu'il vous fournisse un identifiant de connexion.</p>
+						<p><strong>Mot de passe oublié ou erroné :</strong> Cliquez <a href="#">ici</a> pour en créer un nouveau.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

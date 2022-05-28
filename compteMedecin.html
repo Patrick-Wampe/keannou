@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Compte</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="css/style.css">
+        <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    </head>
+
+  <body>
+    <nav class="row col-xs-12 navbar navbar-inverse barreDeNavigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>  
+          </button>
+          <a href="dashboardMedecin.html"><img src="images/logo.png" width=25% class="img-responsive"></a>
+        </div>
+        <div class="collapse navbar-collapse " id="myNavbar">
+          <ul class="nav navbar-nav texteBarreDeNavigation">
+            <li><a href="dashboardMedecin.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="dashboardMedecin.html">
+                <span class="glyphicon glyphicon-list-alt"></span> Formulaires<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="formulaireQuotidien.html">Informations de santé générales (Formulaire quotidien)</a></li>
+                <li><a href="formulaireEvaluationStress.html">Évaluation du niveau de stress (Toutes les 2 semaines)</a></li>
+              </ul>
+            </li>
+            <li><a href="compteMedecin.html"><span class="glyphicon glyphicon-user"></span> Comptes</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <h1 class="col-xs-offset-1 col-xs-10 text-center">
+                <b><span class="glyphicon glyphicon-user"></span> Paramètres</b> du compte<br>
+            </h1>
+
+            <div class="col-xs-offset-1 col-xs-10">
+                <div class="well well-lg">
+                    <strong>Identifiant :</strong> 123456789
+                </div>
+                <div class="well well-lg">
+                    <strong>Mot de passe :</strong> xxxxxxx <button type="button" class="btn btn-warning btn pull-right"><b>Changer</b></button>
+                </div>
+                <div class="well well-lg">
+                    <strong>Générer un identifiant pour un patient :</strong> xxxxxx <button type="button" class="btn btn-primary btn pull-right"><b>Générer identifiant</b></button><br>
+                </div>
+                <div class="well well-lg">
+                    <strong>Supprimer son compte :</strong> <button type="button" class="btn btn-danger btn pull-right"><b>Supprimer compte</b></button><br>
+                </div>
+            </div>
+
+            <h2 class="col-xs-offset-1 col-xs-10 text-center">
+                <b><span class="glyphicon glyphicon-th-list"></span> Liste</b> patient(s) suivi(s)<br>
+            </h2>
+            <div class="col-xs-offset-1 col-xs-10">
+                <table class="table">
+                    <thead style="background-color: black; color: white">
+                    <tr>
+                        <th>N°</th>
+                        <th>Identifiant</th>
+                        <th>Consulter compte</th>
+                        <th>Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>123456789</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn"><b>Consulter compte</b></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn"><b>Supprimer compte</b></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>123456788</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn"><b>Consulter compte</b></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn"><b>Supprimer compte</b></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>123456787</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn"><b>Consulter compte</b></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn"><b>Supprimer compte</b></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><br><br><br><br><br><br><br>
+
+    <footer class="container-fluid text-center">
+      <div class="row navbar-fixed-bottom">
+        <div class="col-xs-offset-2 col-xs-8">
+          <button class="button btn btn-primary footerBouton">Consultation en ligne</button>
+          <button class="button btn btn-primary footerBouton">Forum</button>
+          <button class="button btn btn-primary footerBouton">Blog</button>
+          <button class="button btn btn-primary footerBouton">Média & vidéo</button>
+          <button class="button btn btn-primary footerBouton">Espace médical collaboratif</button>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      var d = new Date();
+      var jours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+      var mois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet", "Août", "Septembre",
+      "Octobre", "Novembre", "Décembre"];
+      document.getElementById("jour").innerHTML = jours[d.getDay()];
+      document.getElementById("journumber").innerHTML = d.getDate();
+      document.getElementById("mois").innerHTML = mois[d.getMonth()];
+      document.getElementById("annee").innerHTML = d.getFullYear();
+    </script>
+  </body>
+</html>

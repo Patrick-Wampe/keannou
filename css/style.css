@@ -1,0 +1,59 @@
+/* Page de connexion */
+
+.imageDeFond
+{
+    background-image:url('../images/medecin.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (min-width: 768px) {
+    .contenuConnexion {
+      position: relative;
+      top: 8em;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .contenuConnexion {
+      position: relative;
+      top: 2em;
+    }
+  }
+
+/* Page de connexion */
+
+
+/* Menu */
+
+.barreDeNavigation
+{
+    background-color: #0F2732 !important;
+}
+
+.navbar-inverse .navbar-nav>li>a
+{
+    color: whitesmoke !important;
+    font-size: 1.3em;
+}
+
+/* Menu */
+
+/* Footer */
+
+.footerBouton
+{
+    background-color: #0F2732 !important;
+    font-weight: bold;
+}
+
+/* Footer */
+
+/* Tableau */
+
+td.highlight {
+    background-color: whitesmoke !important;
+}
+
+/* Tableau */
+
